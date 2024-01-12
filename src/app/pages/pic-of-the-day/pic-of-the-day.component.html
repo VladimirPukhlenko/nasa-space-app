@@ -1,0 +1,94 @@
+<div
+  *ngIf="images$ | async as images"
+  class="relative flex gap-4 flex-col-reverse items-start justify-center lg:flex-row px-2 py-4 md:py-6 md:px-0"
+>
+  <div
+    class="flex flex-col items-center flex-1 justify-center w-full h-[530px]"
+  >
+    <ng-container
+      *ngIf="images?.at(currentPicture)?.media_type === 'image'; else notImage"
+    >
+      <img
+        *ngIf="images?.at(currentPicture)?.url as url"
+        [src]="url"
+        class="rounded-xl object-cover flex object-center flex-1 h-full justify-center w-full"
+      />
+    </ng-container>
+    <ng-template #notImage>
+      <div class="px-20 py-12 gradientBlur rounded-xl">
+        Sorry, picture is not available
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="flex flex-1 flex-col gap-4 h-full">
+    <div
+      class="text-white flex flex-col sm:flex-row sm:justify-between gap-6 items-center justify-center px-8 py-4 font-semibold gradientBlur rounded-xl"
+    >
+      <h1 class="text-xl sm:text-2xl md:text-3xl">
+        {{ images.at(currentPicture)?.title }}
+      </h1>
+      <app-date-picker (newDate)="onDateChange($event)"></app-date-picker>
+    </div>
+    <div
+      class="p-6 md:px-8 flex flex-col gap-10 gradientBlur rounded-xl text-base text-justify"
+    >
+      {{
+        images.at(currentPicture)?.explanation ?? "no data" | truncateText : 600
+      }}
+
+      <div
+        class="flex flex-col sm:flex-row sm:justify-between text-gray-300 font-bold text-xs sm:text-base"
+      >
+        <div>
+          <span *ngIf="images.at(currentPicture)?.copyright">
+            Copyright :"{{ images.at(currentPicture)?.copyright }}",
+          </span>
+        </div>
+        <div>
+          <span> Date : {{ images.at(currentPicture)?.date }} </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex justify-center items-center gap-4">
+      <div
+        class="relative group rounded-md overflow-hidden hover:brightness-100"
+        *ngFor="let image of images; index as i"
+        [ngClass]="
+          currentPicture === i
+            ? 'brightness-100 mainShadow border'
+            : 'brightness-[35%]'
+        "
+      >
+        <ng-container *ngIf="image.media_type === 'image'; else notImageIcon">
+          <img
+            [src]="image.url"
+            class="h-24 aspect-square object-cover object-center transition duration-500"
+          />
+        </ng-container>
+        <ng-template #notImageIcon>
+          <div
+            class="bg-black gradient flex items-center text-center text-sm p-2 h-24 aspect-square transition duration-500"
+          >
+            <div class="hidden sm:block">Not available</div>
+            <div class="block sm:hidden">
+              <mat-icon class="mx-auto">warning</mat-icon>
+            </div>
+          </div>
+        </ng-template>
+
+        <div
+          class="absolute cursor-pointer top-0 left-0 h-full w-full justify-center flex hover:backdrop-blur-[8px] hover:transition duration-500 items-center text-sm"
+          (click)="changeCurrentPicture(i)"
+        >
+          <div
+            class="text-sm md:text-base hidden group-hover:flex justify-center items-center text-center"
+          >
+            {{ image.date }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<div *ngIf="loaderService.isLoading$ | async" class="fixed bottom-10 right-10">
+  <div class="relative w-20 h-20 block preserve-3d rotateX--20deg">
+    <div class="relative w-full h-full preserve-3d animate-loader-spin">
+      <span class="side rotateZ--30deg-rotateY-90deg bg-gradientOne"></span>
+      <span class="side rotateZ-30deg-rotateY-90deg bg-gradientTwo"></span>
+      <span class="side rotateX-30deg bg-gradientOne"></span>
+      <span class="side rotateX--30deg bg-gradientTwo"></span>
+      <span
+        class="shadow w-[40px] h-[40px] bg-[#8B5AD5] absolute top-0 left-0 right-0 bottom-0 m-auto rotateX-90deg-translateZ--40px filter blur-md"
+      ></span>
+    </div>
+  </div>
+</div>

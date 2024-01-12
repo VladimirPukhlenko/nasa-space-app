@@ -1,0 +1,121 @@
+<div
+  class="gradientBlur p-5 rounded-md border relative text-sm group"
+  [ngClass]="
+    asteroid.is_potentially_hazardous_asteroid
+      ? 'border-main'
+      : ' border-transparent'
+  "
+>
+  <div class="flex flex-col gap-8">
+    <div>
+      <h1 class="text-center">
+        {{ asteroid.name }}
+      </h1>
+    </div>
+    <div class="flex flex-col gap-3">
+      <div>
+        Brightness: {{ asteroid.absolute_magnitude_h }} H
+        <span class="text-sm">
+          ( {{ asteroid.absolute_magnitude_h | brightnessEstimate }} )
+        </span>
+      </div>
+      <div class="flex flex-col gap-1">
+        <h3 class="text-center">
+          Diameter size
+          <span class="text-[10px]">
+            {{
+              asteroid.estimated_diameter.meters
+                | averageSize
+                | sizeSpeedColorizer : "size"
+            }}
+          </span>
+        </h3>
+        <div class="flex justify-between text-sm">
+          <div class="flex items-center flex-col">
+            {{ asteroid.estimated_diameter.meters | averageSize }}
+            <span class="text-xs text-gray-400 font-medium">meters</span>
+          </div>
+          <div class="flex items-center flex-col">
+            {{ asteroid.estimated_diameter.kilometers | averageSize }}
+            <span class="text-xs text-gray-400 font-medium">kilometers</span>
+          </div>
+          <div class="flex items-center flex-col">
+            {{ asteroid.estimated_diameter.miles | averageSize }}
+            <span class="text-xs text-gray-400 font-medium">miles</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-1">
+        <h3 class="text-center">
+          Relative velocity
+          <span class="text-[10px]">
+            {{
+              asteroid.close_approach_data[0].relative_velocity
+                .kilometers_per_hour | sizeSpeedColorizer : "velocity"
+            }}
+          </span>
+        </h3>
+        <div class="flex justify-between text-sm">
+          <div class="flex items-center flex-col">
+            {{
+              asteroid.close_approach_data[0].relative_velocity
+                .kilometers_per_second | toFixed
+            }}
+            <span class="text-xs text-gray-400 font-medium">km/s</span>
+          </div>
+          <div class="flex items-center flex-col">
+            {{
+              asteroid.close_approach_data[0].relative_velocity
+                .kilometers_per_hour | toFixed
+            }}
+            <span class="text-xs text-gray-400 font-medium">km/h</span>
+          </div>
+          <div class="flex items-center flex-col">
+            {{
+              asteroid.close_approach_data[0].relative_velocity.miles_per_hour
+                | toFixed
+            }}
+            <span class="text-xs text-gray-400 font-medium">mph</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-1">
+        <h3 class="text-center">Close approach distance</h3>
+        <div class="flex justify-between text-sm">
+          <div class="flex items-center flex-col">
+            {{
+              asteroid.close_approach_data[0].miss_distance.kilometers | toFixed
+            }}
+            <span class="text-xs text-gray-400 font-medium">kilometers</span>
+          </div>
+          <div class="flex items-center flex-col">
+            {{ asteroid.close_approach_data[0].miss_distance.miles | toFixed }}
+            <span class="text-xs text-gray-400 font-medium">miles</span>
+          </div>
+          <div class="flex items-center flex-col">
+            {{ asteroid.close_approach_data[0].miss_distance.lunar | toFixed }}
+            <span class="text-xs text-gray-400 font-medium">lunar</span>
+          </div>
+        </div>
+      </div>
+      <div>NEO reference ID: {{ asteroid.neo_reference_id }}</div>
+      <div
+        *ngIf="asteroid.is_potentially_hazardous_asteroid"
+        class="absolute bottom-9 right-5"
+      >
+        <div class="text-red-500 flex justify-center items-center flex-col">
+          <mat-icon fontIcon="warning"></mat-icon>
+          <p class="text-[8px] leading-3 w-9 h-[2px]">
+            <span class="flex flex-col"> potentially hazardous</span>
+          </p>
+        </div>
+      </div>
+      <div class="block group-hover:hidden">
+        <img src="../../../assets/images/asteroid-static.png" alt="asteroid" />
+      </div>
+      <div class="hidden group-hover:block">
+        <img src="../../../assets/images/asteroid.gif" alt="asteroid" />
+      </div>
+    </div>
+  </div>
+</div>

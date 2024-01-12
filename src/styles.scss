@@ -1,0 +1,108 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$nasa-primary: mat.define-palette(mat.$indigo-palette);
+$nasa-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$nasa-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$nasa-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $nasa-primary,
+      accent: $nasa-accent,
+      warn: $nasa-warn,
+    ),
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($nasa-theme);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .nav-btn {
+    @apply py-2 md:py-3 relative after:absolute after:left-1/2 after:bg-white after:bottom-[3px] after:w-0 after:h-[2px] after:translate-x-[-50%] after:rounded-sm after:transition-all after:duration-300 hover:after:w-full;
+  }
+  .modal {
+    @apply p-4 overflow-hidden rounded-xl;
+  }
+  .gradient {
+    @apply from-purple-500/20 to-cyan-500/20 bg-gradient-to-r;
+  }
+  .gradientBlur {
+    @apply backdrop-blur-xl from-purple-400/10 to-cyan-400/10 bg-gradient-to-r;
+  }
+  .gradientBlurLighter {
+    @apply backdrop-blur-xl from-purple-500/20 to-cyan-500/20 bg-gradient-to-r;
+  }
+  .gradientText {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-cyan-500;
+  }
+  .myContainer {
+    @apply min-h-[530px] sm:min-h-[580px] w-full py-10;
+  }
+}
+
+// overriding standard Angular Material styles,bad approach, but it is what it is
+.mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: transparent !important;
+  padding: 1rem !important;
+  box-shadow: none !important;
+}
+
+.mat-datepicker-content {
+  color: white !important;
+  background-color: transparent !important;
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  backdrop-filter: blur(24px);
+  box-shadow: 0px 2px 4px -1px rgba(162, 162, 162, 0.2),
+    0px 4px 5px 0px rgba(217, 217, 217, 0.14),
+    0px 1px 10px 0px rgba(157, 157, 157, 0.12) !important;
+}
+.mat-calendar-body-cell-content,
+.mat-datepicker-content,
+.ng-star-inserted,
+.mat-mdc-button:not(:disabled),
+.mat-calendar-arrow,
+.mat-datepicker-content .mat-calendar-previous-button,
+.mat-datepicker-content .mat-calendar-next-button,
+.mat-calendar-body-label {
+  color: white !important;
+  font-weight: 700;
+}
+.mat-calendar-arrow {
+  fill: white !important;
+}
+
+.mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: transparent !important;
+}
+
+.mat-mdc-form-field-infix {
+  width: auto !important;
+}
+.mat-calendar-body-disabled
+  > .mat-calendar-body-cell-content:not(.mat-calendar-body-selected):not(
+    .mat-calendar-body-comparison-identical
+  ) {
+  color: gray !important;
+}

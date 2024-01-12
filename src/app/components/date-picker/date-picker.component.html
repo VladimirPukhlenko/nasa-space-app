@@ -1,0 +1,13 @@
+<mat-form-field>
+  <mat-label class="text-xs">Choose a date</mat-label>
+  <input
+    [max]="maxDate"
+    (dateChange)="newDate.emit($event.value)"
+    matInput
+    readonly
+    #pickerInput
+    [matDatepicker]="picker"
+  />
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>

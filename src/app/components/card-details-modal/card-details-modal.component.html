@@ -1,0 +1,52 @@
+<div class="text-white h-full cursor-text">
+  <button (click)="closeModal()" class="absolute right-2 z-50 top-2">
+    <mat-icon aria-hidden="false" fontIcon="close"></mat-icon>
+  </button>
+
+  <div
+    class="flex group z-40 flex-row items-center h-full justify-center relative overflow-hidden"
+  >
+    <!-- text -->
+    <div
+      class="hidden group-hover:block transition-all ease-in-out duration-700 absolute w-full h-full z-50 top-0 left-0 p-2 md:p-16"
+    >
+      <div class="flex flex-col justify-between h-full">
+        <div
+          class="flex flex-col justify-center gap-6 text-xs sm:text-base md:text-lg"
+        >
+          <h1 class="text-center font-bold text-xs sm:text-2xl">
+            {{ this.cardData.data[0].title }}
+          </h1>
+          <p class="text-justify font-medium">
+            {{ this.cardData.data[0].description | truncateText }}
+          </p>
+        </div>
+        <div
+          class="flex flex-col sm:flex-row sm:justify-between text-gray-300 font-bold text-xs sm:text-base"
+        >
+          <div>
+            <span *ngIf="this.cardData.data[0].photographer">
+              Photographer :"{{ this.cardData.data[0].photographer }}",
+            </span>
+            <span *ngIf="this.cardData.data[0].location">
+              Location : {{ this.cardData.data[0].location }}
+            </span>
+          </div>
+          <div>
+            <span>
+              Created : {{ this.cardData.data[0].date_created | date }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- image -->
+
+    <img
+      [src]="this.cardData.links[0].href"
+      [alt]="this.cardData.data[0].title"
+      loading="lazy"
+      class="w-full h-auto md:w-auto md:h-full object-cover rounded-md group-hover:blur-lg group-hover:brightness-50 transition-all ease-in-out duration-700"
+    />
+  </div>
+</div>

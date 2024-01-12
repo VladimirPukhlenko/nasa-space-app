@@ -1,0 +1,15 @@
+<div class="relative w-full min-h-screen z-0">
+  <div
+    class="absolute top-0 left-0 right-0 bottom-0 w-full bg-repeat bg-stars object-cover bg-black"
+  ></div>
+  <div
+    class="absolute top-0 left-0 right-0 bottom-0 w-full bg-repeat bg-twinkling object-cover animate-move-twink-back"
+  ></div>
+  <app-earth-animation>></app-earth-animation>
+  <div class="relative z-[2] text-white pt-20">
+    <app-header></app-header>
+    <div class="container">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>

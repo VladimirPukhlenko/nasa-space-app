@@ -1,0 +1,30 @@
+<div
+  class="myContainer flex flex-col gap-10 relative"
+  *ngIf="asteroidsData$ | async as asteroids"
+>
+  <div class="flex flex-col justify-center gap-5 items-center">
+    <div class="flex flex-col gap-5">
+      <h1 class="gradientText text-5xl text-center font-black">
+        Near Earth asteroids
+      </h1>
+      <div
+        class="w-full flex justify-center items-center static xl:absolute xl:w-40 top-2 right-2"
+      >
+        <app-date-picker (newDate)="onDateChange($event)"></app-date-picker>
+      </div>
+    </div>
+    <p class="text-center text-xs sm:text-lg text-gray-400 font-semibold">
+      On <span class="font-black text-white">{{ date }}</span> total number of
+      asteroids near by Earth is
+      <span class="font-black text-white">{{ asteroids.length }}</span>
+    </p>
+  </div>
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+  >
+    <app-asteroid-card
+      *ngFor="let asteroid of asteroids"
+      [asteroid]="asteroid"
+    ></app-asteroid-card>
+  </div>
+</div>
