@@ -78,7 +78,6 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
       useClass: LoaderInterceptor,
       multi: true,
     },
-    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })
