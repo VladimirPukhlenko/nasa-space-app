@@ -31,6 +31,7 @@ import { AverageSizePipe } from './pipes/averageSize.pipe';
 import { ToFixedPipe } from './pipes/toFixed.pipe';
 import { AsteroidCardComponent } from './components/asteroid-card/asteroid-card.component';
 import { SizeSpeedColorizerPipe } from './pipes/sizeSpeedColorizer.pipe';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { SizeSpeedColorizerPipe } from './pipes/sizeSpeedColorizer.pipe';
       useClass: LoaderInterceptor,
       multi: true,
     },
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent],
 })
